@@ -1,4 +1,5 @@
-name: Automated Deployment to EC2
+
+      name: Automated Deployment to EC2
 
 on:
   push:
@@ -18,18 +19,9 @@ jobs:
           username: ${{ secrets.EC2_USERNAME }}
           key: ${{ secrets.EC2_SSH_KEY }}
           script: |
-            # 1. Project folder mein jao
             cd ~/cicd-project1
-            
-            # 2. GitHub se naya badlaav pull karo
             git pull origin main
-            
-            # 3. Agar koi purana container chal raha hai toh use band karo
             sudo docker stop my-app-container || true
             sudo docker rm my-app-container || true
-            
-            # 4. Nayi Docker image build karo
             sudo docker build -t my-cicd-app .
-            
-            # 5. Naya container chalu karo (3000 port par)
             sudo docker run -d --name my-app-container -p 3000:3000 my-cicd-app
