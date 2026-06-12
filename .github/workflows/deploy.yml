@@ -1,5 +1,4 @@
-
-      name: Automated Deployment to EC2
+name: Automated Deployment to EC2
 
 on:
   push:
